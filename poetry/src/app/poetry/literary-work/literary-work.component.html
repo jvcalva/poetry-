@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poetry</title>
+</head>
+
+<body>
+    <div class="d-flex justify-content-center align-items-center mt-4">
+        <div class="col-xl-6">
+
+            <div *ngIf="userType === 'registered'">
+                <ul class="nav justify-content-end">
+                    <li>
+                        <a class="nav-link" aria-disabled="true" href="/favorite">Favoritos</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div *ngIf="titles.length > 0; else noWorks">
+                <h5>Obras de {{ authorName }}</h5>
+                <div class="mt-3">
+                    <ul class="item">
+                        <li *ngFor="let title of titles">
+                            <a [routerLink]="['/poetry/literary-work', authorName, 'fragment', title]">{{ title }}</a>
+                            <button *ngIf="userType === 'registered'" (click)="addToFavorite(title)" class="btn">
+                                <i [ngClass]="isFavorite(title) ? 'bi bi-heart-fill' : 'bi bi-heart'"></i>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <ng-template #noWorks>
+                <p>No hay obras disponibles para este autor.</p>
+            </ng-template>
+        </div>
+    </div>
+</body>
+
+</html>

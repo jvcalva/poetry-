@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="d-flex justify-content-center align-items-center mt-4">
+    <div class="col-xl-5">
+      <h5>Favoritos</h5>
+      <p>Autores: {{ favoriteAuthors.length }} - Obras: {{ favoriteTitles.length }}</p>
+      <h6>Tus Autores Favoritos</h6>
+      <div *ngIf="favoriteAuthors.length > 0; else noFavoriteAuthors">
+        <ul class="mt-3">
+          <li *ngFor="let author of favoriteAuthors">
+            <a [routerLink]="['/poetry/literary-work', author]">{{ author }}</a>
+            <button (click)="removeFromFavorites(author)" class="btn">
+              <i class="bi bi-heart-fill"></i>
+            </button>
+          </li>
+        </ul>
+      </div>
+      <ng-template #noFavoriteAuthors>
+        <p>No tienes autores favoritos aún.</p>
+      </ng-template>
+
+
+
+      
+      <h6>Tus Obras Favoritas</h6>
+<div *ngIf="favoriteTitles.length > 0; else noFavoriteTitles">
+  <ul class="mt-3">
+    <li *ngFor="let title of favoriteTitles">
+      <a [routerLink]="['/poetry/literary-work', authorName, 'fragment', title]">{{ title }}</a>
+      <button (click)="removeTitleFromFavorites(title)" class="btn">
+        <i class="bi bi-heart-fill"></i>
+      </button>
+    </li>
+  </ul>
+</div>
+<ng-template #noFavoriteTitles>
+  <p>No tienes obras favoritas en este momento.</p>
+</ng-template>
+
+
+
+
+    </div>
+  </div>
+
+</body>
+
+</html>
