@@ -14,12 +14,16 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     
     const loggedInUser = localStorage.getItem('loggedInUser');
-    
-    if (loggedInUser) {
-      return true;
-    } else {
-      return this.router.createUrlTree(['/login']);
+    const userType = localStorage.getItem('userType');
+
+    if (userType === 'guest' && state.url === '/favorite') {
+      return this.router.createUrlTree(['/poetry/home']); 
     }
+
+    if (loggedInUser && state.url === '/login') {
+      return this.router.createUrlTree(['/poetry/home']); 
+    }
+    
+    return true;
   }
-  
 }

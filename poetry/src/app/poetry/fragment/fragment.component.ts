@@ -17,12 +17,15 @@ export class FragmentComponent implements OnInit {
     this.authorName = this.route.snapshot.paramMap.get('name') || '';
     this.title = this.route.snapshot.paramMap.get('title') || '';
 
-    this.apiservice.getFragment(this.authorName).subscribe((data: any) => {
-      const work = data.find((item: any) => item.title === this.title);
-      if (work) {
-        this.lines = work.lines;
+    this.apiservice.getFragmentByTitle(this.title).subscribe((data: any) => {
+      if (data && data.length > 0) {
+        const work = data.find((item: any) => item.title === this.title);
+        if (work) {
+          this.lines = work.lines;
+        }
       }
     });
+    
   }
 
 }
